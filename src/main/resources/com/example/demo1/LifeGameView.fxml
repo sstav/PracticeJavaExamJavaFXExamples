@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.canvas.Canvas?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.demo1.LifeGameController">
+    <children>
+        <Button fx:id="button_gen" mnemonicParsing="false" onAction="#nextGen" prefHeight="25.0" prefWidth="803.0" text="Generate Birth">
+            <cursor>
+                <Cursor fx:constant="CLOSED_HAND" />
+            </cursor>
+        </Button>
+        <Canvas fx:id="board" height="776.0" width="802.0" />
+    </children>
+</VBox>

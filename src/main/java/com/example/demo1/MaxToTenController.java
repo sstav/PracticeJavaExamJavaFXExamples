@@ -3,11 +3,9 @@ package com.example.demo1;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
-import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.shape.Rectangle;
 
@@ -21,15 +19,7 @@ public class MaxToTenController {
     @FXML
     private Button[][] btns;
 
-    @FXML
-    private Button reset;
-
     final int SIZE = 4;
-
-    private GraphicsContext gc;
-    private long startTime;
-    private long endTime;
-    private LinkedList<Rectangle> rects;
     private int press = 0;
 
     @FXML
@@ -41,32 +31,41 @@ public class MaxToTenController {
                 btns[i][j].setPrefSize(grid.getPrefWidth() / SIZE, grid.getPrefHeight() / SIZE);
                 grid.add(btns[i][j], i, j);
 
-                btns[i][j].setOnAction(new EventHandler<ActionEvent>() {
-
-                    @Override
-                    public void handle(ActionEvent event) {
-                        for (int i = 0; i < SIZE; i++) {
-                            for (int j = 0; j < SIZE; j++) {
-                                if (btns[i][j] == event.getSource()) {
-                                    if (Integer.parseInt(btns[i][j].getText()) < 10) {
+                btns[i][j].setOnAction(event -> {
+                        for (int ii = 0; ii < SIZE; ii++) {
+                            for (int jj = 0; jj < SIZE; jj++) {
+                                if (btns[ii][jj] == event.getSource()) {
+                                    if (Integer.parseInt(btns[ii][jj].getText()) < 10) {
                                         press++;
-                                        int n1 = (Integer.parseInt(btns[i - 1][j].getText()) == 10)?1:0;
-                                        int n2 = (Integer.parseInt(btns[i - 1][j].getText()) == 10)?1:0;
-                                        int n3 = (Integer.parseInt(btns[i - 1][j].getText()) == 10)?1:0;
-                                        int n4 = (Integer.parseInt(btns[i - 1][j].getText()) == 10)?1:0;
+                                        int n1 = 0,n2 = 0,n3 = 0,n4 = 0;
+                                        if ((ii-1) >= 0) {
+                                             n1 = (Integer.parseInt(btns[ii - 1][jj].getText()) == 10) ? 1 : 0;
+                                        }
+                                        if ((jj-1) >= 0) {
+                                             n2 = (Integer.parseInt(btns[ii][jj - 1].getText()) == 10) ? 1 : 0;
+                                        }
+                                        if ((jj+1) < SIZE) {
+                                            n3 = (Integer.parseInt(btns[ii][jj + 1].getText()) == 10) ? 1 : 0;
+                                        }
+                                        if ((ii+1) < SIZE) {
+                                            n4 = (Integer.parseInt(btns[ii+1][jj].getText()) == 10) ? 1 : 0;
+                                        }
+
                                         int total = n1 + n2 + n3 + n4;
 
                                         if (total >= 2) {
-                                            btns[i][j].setText("10");
+                                            btns[ii][jj].setText("10");
                                         } else {
-                                            btns[i][j].setText(Integer.parseInt(btns[i][j].getText()) + 1 + "");
+                                            if (Integer.parseInt(btns[ii][jj].getText())<10){
+                                                btns[ii][jj].setText((Integer.parseInt((btns[ii][jj].getText()) )+ 1) + "");
+                                            }
                                         }
                                         checkIfDone();
                                     }
+                                    break;
                                 }
                             }
                         }
-                    }
                 });
             }
         }
@@ -100,7 +99,7 @@ public class MaxToTenController {
             }
         }
         if (isTen == SIZE * SIZE) {
-            alert( "Game over!", "There was:" + press + "pressing");
+            alert( "Game over!", "There was: " + press + " pressing");
         }
     }
 }

@@ -16,8 +16,15 @@ public class Main extends Application {
         stage.show();
     }
 
+    private void LifeGame(Stage stage) throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("LifeGameView.fxml"));
+        Scene scene = new Scene(fxmlLoader.load(), 800, 800);
+        stage.setScene(scene);
+        stage.show();
+    }
+
     private void MaxToTen(Stage stage) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("MaxToTen.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("MaxToTenView.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 400, 400);
         stage.setTitle("Game");
         stage.setScene(scene);
@@ -26,7 +33,9 @@ public class Main extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {
-        CardGame(stage);
+        //MaxToTen(stage);
+        LifeGame(stage);
+        //CardGame(stage);
     }
 
     public static void main(String[] args) {
